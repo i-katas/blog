@@ -1,4 +1,5 @@
-- # display empty blog?
-- display blogs less than a page?
-- display blogs out of a page?
-- order?
+- # Display empty blog?
+- Display blogs less than a page?
+- Display blogs out of a page?
+- Display order?
+- externalize server configuration, e.g: host & port
