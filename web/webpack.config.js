@@ -1,6 +1,10 @@
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+
+const production = process.env['mode'] == 'production'
+
 module.exports = {
   entry: './src/index.js',
-  mode: process.env['mode'] || 'development',
+  mode:  production ? 'production' : 'development',
   module: {
     rules: [
       {
@@ -10,6 +14,16 @@ module.exports = {
       }
     ]
   },
+  plugins:[
+    new UglifyJSPlugin({
+      sourceMap: !production,
+      uglifyOptions: {
+        output: {
+          comments: !production
+        }
+      }
+    })
+  ],
   resolve: {
     extensions: ['.js', '.jsx'],
   }
