@@ -4,6 +4,10 @@ allprojects {
 }
 
 subprojects {
+    if (it.name == "web") {
+        return
+    }
+
     apply plugin: 'java'
     sourceCompatibility = 1.8
     targetCompatibility = 1.8

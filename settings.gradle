@@ -1,2 +1,2 @@
 rootProject.name = 'blog'
-include(":services")
+include(":web", ":services")
