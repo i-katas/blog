@@ -1,0 +1,13 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "author": "i-katas",
+  "description": "My personal blog site",
+  "scripts": {
+    "test": "npx jest",
+    "build": "npm test"
+  },
+  "devDependencies": {
+    "jest": "^25.1.0"
+  }
+}

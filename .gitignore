@@ -1,11 +1,16 @@
+# IDEA
 .idea
 *.iml
 classes
 out
 target
 
-.gradle
-build
+# Gradle
+.gradle/
+build/
 
+# NodeJs
+node_modules/
+
+# VIM
 *.swp
-
