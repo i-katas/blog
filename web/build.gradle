@@ -10,4 +10,10 @@ task build {
     dependsOn(npm_run_build)
 }
 
+task clean {
+    delete file('dist')
+}
 
+tasks.withType(NpmTask) {
+    environment = [NODE_ENV: 'production']
+}
