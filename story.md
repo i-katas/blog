@@ -1,3 +1,3 @@
-- as a user I want to list all blogs
+- # as a user I want to list all blogs
 - as a blogger I want to publish my thinking in a blog
 - as a user I want to read the blog

@@ -1,0 +1,3 @@
+dependencies {
+    compile 'io.undertow:undertow-core:2.0.29.Final'
+}
