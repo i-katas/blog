@@ -1,0 +1,4 @@
+- # display empty blog?
+- display blogs less than a page?
+- display blogs out of a page?
+- order?
