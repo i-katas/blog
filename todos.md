@@ -7,4 +7,4 @@
 
 - fetch blogs from remote server before initializing BlogList 
 - how to display blogs that has never been published?
-- move all setup stuff to jest setupFiles
+- ~~move all setup stuff to jest setupFiles~~
