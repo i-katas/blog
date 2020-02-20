@@ -1,6 +1,6 @@
 module.exports = {
   entry: './src/index.js',
-  mode: process.env['NODE_ENV'] || 'development',
+  mode: process.env['mode'] || 'development',
   module: {
     rules: [
       {

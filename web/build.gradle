@@ -6,14 +6,15 @@ task test {
     dependsOn(npm_run_test)
 }
 
+
 task build {
     dependsOn(npm_run_build)
 }
 
 task clean {
-    delete file('dist')
+    delete file('node_modules'), file('dist')
 }
 
 tasks.withType(NpmTask) {
-    environment = [NODE_ENV: 'production']
+    environment = [mode: 'production']
 }
