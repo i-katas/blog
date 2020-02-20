@@ -1,21 +1,29 @@
 package com.kata.blog;
 
 import io.undertow.Undertow;
-import io.undertow.util.Headers;
+import io.undertow.server.HttpHandler;
+
+import static io.undertow.util.Headers.CONTENT_TYPE;
 
 /**
  * @author i-katas
  * @since 1.0
  */
 public class Server {
+    private static final int ARG_SERVER_PORT = 1;
+    private static final int ARG_SERVER_HOST = 0;
 
     private final Undertow server;
 
-    public Server(int serverPort) {
-        server = Undertow.builder().addHttpListener(serverPort, "localhost", exchange -> {
-            exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "application/json");
+    public Server(String host, int serverPort) {
+        server = Undertow.builder().addHttpListener(serverPort, host, displayBlogs()).build();
+    }
+
+    private HttpHandler displayBlogs() {
+        return exchange -> {
+            exchange.getResponseHeaders().put(CONTENT_TYPE, "application/json");
             exchange.getResponseSender().send("[]");
-        }).build();
+        };
     }
 
     public static void main(String[] args) {
@@ -23,12 +31,12 @@ public class Server {
     }
 
     public static Server run(String[] args) {
-        Server server = new Server(Integer.parseInt(args[0]));
+        Server server = new Server(args[ARG_SERVER_HOST], Integer.parseInt(args[ARG_SERVER_PORT]));
         server.start();
         return server;
     }
 
-    private void start() {
+    public void start() {
         server.start();
     }
 

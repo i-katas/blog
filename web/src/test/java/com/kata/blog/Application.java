@@ -9,8 +9,6 @@ import io.undertow.client.ClientRequest;
 import io.undertow.client.ClientResponse;
 import io.undertow.client.UndertowClient;
 import io.undertow.server.DefaultByteBufferPool;
-import io.undertow.util.Headers;
-import io.undertow.util.Methods;
 import org.xnio.Xnio;
 import org.xnio.XnioWorker;
 import org.xnio.channels.StreamSourceChannel;
@@ -26,7 +24,8 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CountDownLatch;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static io.undertow.util.Headers.HOST;
+import static io.undertow.util.Methods.GET;
 import static org.xnio.OptionMap.EMPTY;
 
 /**
@@ -34,14 +33,13 @@ import static org.xnio.OptionMap.EMPTY;
  * @since 1.0
  */
 public class Application {
-    private static final int serverPort = 8080;
-    private final URI site = URI.create("http://localhost:" + serverPort);
+    private static final URI site = URI.create("http://localhost:8080");
     private final UndertowClient client = UndertowClient.getInstance();
     private ClientConnection connection;
     private Server server;
 
     public void start() throws IOException {
-        server = Server.run(new String[]{Integer.toString(serverPort)});
+        server = Server.run(new String[]{site.getHost(), Integer.toString(site.getPort())});
         connection = connection();
     }
 
@@ -66,8 +64,8 @@ public class Application {
     }
 
     private ClientRequest get(String uri) {
-        ClientRequest request = new ClientRequest().setMethod(Methods.GET).setPath(uri);
-        request.getRequestHeaders().put(Headers.HOST, site.getHost());
+        ClientRequest request = new ClientRequest().setMethod(GET).setPath(uri);
+        request.getRequestHeaders().put(HOST, site.getHost());
         return request;
     }
 
