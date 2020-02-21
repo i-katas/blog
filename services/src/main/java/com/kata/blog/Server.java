@@ -2,9 +2,7 @@ package com.kata.blog;
 
 import io.undertow.Undertow;
 import io.undertow.server.HttpHandler;
-import io.undertow.util.HttpString;
 
-import static io.undertow.util.Headers.ACCEPT_CHARSET;
 import static io.undertow.util.Headers.CONTENT_TYPE;
 import static io.undertow.util.HttpString.tryFromString;
 
@@ -13,8 +11,8 @@ import static io.undertow.util.HttpString.tryFromString;
  * @since 1.0
  */
 public class Server {
-    private static final int ARG_SERVER_PORT = 1;
     private static final int ARG_SERVER_HOST = 0;
+    private static final int ARG_SERVER_PORT = 1;
 
     private final Undertow server;
 
