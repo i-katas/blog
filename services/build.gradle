@@ -5,7 +5,7 @@ plugins {
 mainClassName = "com.kata.blog.Server"
 
 run {
-    args = ["localhost", "8080"]
+    args = [getProperty("services.host"), getProperty("services.port")]
 }
 
 dependencies {

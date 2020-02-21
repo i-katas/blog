@@ -16,5 +16,5 @@ task clean {
 }
 
 tasks.withType(NpmTask) {
-    environment = [mode: 'production']
+    environment = [mode: 'production', SERVICES_HOST: getProperty('services.host'), SERVICES_PORT: getProperty('services.port')]
 }

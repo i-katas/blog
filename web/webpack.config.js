@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 const production = process.env['mode'] == 'production'
@@ -15,6 +16,7 @@ module.exports = {
     ]
   },
   plugins:[
+    new webpack.EnvironmentPlugin(['SERVICES_HOST', 'SERVICES_PORT']),
     new UglifyJSPlugin({
       sourceMap: !production,
       uglifyOptions: {
