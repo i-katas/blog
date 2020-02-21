@@ -5,7 +5,8 @@
   "description": "My personal blog site",
   "scripts": {
     "test": "npx jest",
-    "build": "npm test && npx webpack"
+    "build": "npm test && npx webpack",
+    "start:dev": "npx webpack-dev-server"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
@@ -19,7 +20,8 @@
     "jest-enzyme": "^7.1.2",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.41.6",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
     "react": "^16.12.0",

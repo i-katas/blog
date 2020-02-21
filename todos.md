@@ -8,4 +8,4 @@
 - fetch blogs from remote server before initializing BlogList 
 - how to display blogs that has never been published?
 - ~~move all setup stuff to jest setupFiles~~
-- add start command in gradle to start both web & rest server
+- ~~add start command in gradle to start both web & rest server~~

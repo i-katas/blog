@@ -26,6 +26,10 @@ module.exports = {
       }
     })
   ],
+  devServer: {
+    contentBase: '.',
+    hot: true,
+  },
   resolve: {
     extensions: ['.js', '.jsx'],
   }
