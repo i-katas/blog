@@ -35,7 +35,7 @@ import static org.xnio.OptionMap.EMPTY;
  * @since 1.0
  */
 public class Application {
-    private static final URI site = URI.create("http://localhost:9090");
+    private static final URI site = URI.create("http://localhost:9091");
     private final UndertowClient client = UndertowClient.getInstance();
     private ClientConnection connection;
     private Server server;
