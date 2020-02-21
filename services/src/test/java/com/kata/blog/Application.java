@@ -26,6 +26,8 @@ import java.util.concurrent.CountDownLatch;
 
 import static io.undertow.util.Headers.HOST;
 import static io.undertow.util.Methods.GET;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasItem;
 import static org.xnio.OptionMap.EMPTY;
 
 /**
@@ -33,7 +35,7 @@ import static org.xnio.OptionMap.EMPTY;
  * @since 1.0
  */
 public class Application {
-    private static final URI site = URI.create("http://localhost:8080");
+    private static final URI site = URI.create("http://localhost:9090");
     private final UndertowClient client = UndertowClient.getInstance();
     private ClientConnection connection;
     private Server server;
@@ -48,15 +50,6 @@ public class Application {
         return client.connect(site, worker, new DefaultByteBufferPool(false, 17 * 1024), EMPTY).get();
     }
 
-    public void stop() throws IOException {
-        if (connection != null) {
-            connection.close();
-        }
-        if (server != null) {
-            server.stop();
-        }
-    }
-
     public JsonAsserter list() throws IOException, InterruptedException {
         ResponseHandler response = new ResponseHandler();
         connection.sendRequest(get("/blogs"), response);
@@ -69,10 +62,20 @@ public class Application {
         return request;
     }
 
+    public void stop() throws IOException {
+        if (connection != null) {
+            connection.close();
+        }
+        if (server != null) {
+            server.stop();
+        }
+    }
+
     private static class ResponseHandler implements ClientCallback<ClientExchange> {
         private final CountDownLatch lock = new CountDownLatch(1);
         private IOException exception;
         private StreamSourceChannel channel;
+        private ClientResponse response;
 
         @Override
         public void completed(ClientExchange result) {
@@ -80,7 +83,7 @@ public class Application {
                 result.setResponseListener(this);
                 return;
             }
-            ClientResponse response = result.getResponse();
+            response = result.getResponse();
             if (isFailed(response)) {
                 failed(new IOException(result.getRequest().getPath() + " " + response.getStatus() + "/" + response.getResponseCode()));
                 return;
@@ -108,9 +111,14 @@ public class Application {
             if (exception != null) {
                 throw exception;
             }
+            assertAccessControlAllowOrigin();
             try (StreamSourceChannel channel = this.channel) {
                 return Application.toString(channel, StandardCharsets.UTF_8);
             }
+        }
+
+        private void assertAccessControlAllowOrigin() {
+            assertThat(response.getResponseHeaders().get("Access-Control-Allow-Origin"), hasItem("*"));
         }
 
     }

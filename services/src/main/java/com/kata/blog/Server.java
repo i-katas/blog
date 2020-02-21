@@ -2,8 +2,11 @@ package com.kata.blog;
 
 import io.undertow.Undertow;
 import io.undertow.server.HttpHandler;
+import io.undertow.util.HttpString;
 
+import static io.undertow.util.Headers.ACCEPT_CHARSET;
 import static io.undertow.util.Headers.CONTENT_TYPE;
+import static io.undertow.util.HttpString.tryFromString;
 
 /**
  * @author i-katas
@@ -21,7 +24,7 @@ public class Server {
 
     private HttpHandler displayBlogs() {
         return exchange -> {
-            exchange.getResponseHeaders().put(CONTENT_TYPE, "application/json");
+            exchange.getResponseHeaders().put(CONTENT_TYPE, "application/json").put(tryFromString("Access-Control-Allow-Origin"), "*");
             exchange.getResponseSender().send("[]");
         };
     }
