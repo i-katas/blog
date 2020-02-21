@@ -5,17 +5,17 @@ function flushPromises() {
 }
 
 describe('BlogList', () => {
-    it('display empty blogs', () => {
+    it('display empty blogs', async () => {
         let blogs = mount(<BlogList items={Promise.resolve({items: []})}/>);
 
-        return flushPromises().then(() => {
-            expect(blogs.find('#blogs')).toHaveDisplayName("ul");
-            expect(blogs.find('#blogs').find("li.empty").exists()).toBe(false);
-            blogs.update();
+        expect(blogs.find('#blogs')).toHaveDisplayName("ul");
+        expect(blogs.find('#blogs').find("li.empty").exists()).toBe(false);
 
-            expect(blogs.find('#blogs')).toHaveDisplayName("ul");
-            expect(blogs.find('#blogs').find("li.empty").exists()).toBe(true);
-            expect(blogs.find('#blogs').find("li.empty")).toHaveText("No blogs");
-        });
+        await flushPromises();
+        blogs.update();
+
+        expect(blogs.find('#blogs')).toHaveDisplayName("ul");
+        expect(blogs.find('#blogs').find("li.empty").exists()).toBe(true);
+        expect(blogs.find('#blogs').find("li.empty")).toHaveText("No blogs");
     });
 });
