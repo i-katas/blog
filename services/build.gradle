@@ -1,3 +1,13 @@
+plugins {
+    id 'application'
+}
+
+mainClassName = "com.kata.blog.Server"
+
+run {
+    args = ["localhost", "8080"]
+}
+
 dependencies {
     compile 'io.undertow:undertow-core:2.0.29.Final'
     testCompile 'com.jayway.jsonpath:json-path-assert:2.4.0'
