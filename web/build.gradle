@@ -12,7 +12,9 @@ task build {
 }
 
 task clean {
+  doLast {
     delete file('node_modules'), file('dist')
+  }
 }
 
 tasks.withType(NpmTask) {
